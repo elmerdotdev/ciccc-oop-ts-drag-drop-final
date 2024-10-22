@@ -1,0 +1,74 @@
+<div class="container">
+  <div>
+    <h3>To Do</h3>
+    <ul id="list-todo">
+    </ul>
+  </div>
+
+  <div>
+    <h3>In Progress</h3>
+    <ul id="list-inprogress">
+    </ul>
+  </div>
+
+  <div>
+    <h3>Done</h3>
+    <ul id="list-done">
+    </ul>
+  </div>
+</div>
+
+<div>
+  <button class="task-add">Add Task</button>
+</div>
+
+<script>
+  import { taskList } from "../lib/TaskList";
+
+  taskList.renderTasks();
+
+  const todoList = document.getElementById('list-todo');
+  const inProgressList = document.getElementById('list-inprogress');
+  const doneList = document.getElementById('list-done');
+
+  if (todoList) {
+    todoList.addEventListener('dragover', (event) => taskList.onDragOver(event));
+    todoList.addEventListener('drop', (event) => taskList.onDrop(event, 'To Do'));
+  }
+
+  if (inProgressList) {
+    inProgressList.addEventListener('dragover', (event) => taskList.onDragOver(event));
+    inProgressList.addEventListener('drop', (event) => taskList.onDrop(event, 'In Progress'));
+  }
+
+  if (doneList) {
+    doneList.addEventListener('dragover', (event) => taskList.onDragOver(event));
+    doneList.addEventListener('drop', (event) => taskList.onDrop(event, 'Done'));
+  }
+
+  const btn = document.querySelector('.task-add');
+  btn?.addEventListener('click', () => {
+    const newTask = {
+      id: taskList.tasks.length + 1,
+      title: `Task ${taskList.tasks.length + 1}`,
+      description: `Task ${taskList.tasks.length + 1} description`,
+      category: "To Do"
+    };
+    taskList.addTask(newTask);
+  });
+</script>
+
+<style>
+  .container {
+    display: flex;
+    min-height: 50vh;
+  }
+
+  .container > div {
+    flex: 1;
+  }
+
+  ul {
+    height: 100%;
+  }
+</style>
