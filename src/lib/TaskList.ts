@@ -18,25 +18,22 @@ class Task {
     ];
   }
 
-  // Add task method
+  // Add task
   addTask(newTask: TaskList): void {
-    newTask.id = Task.taskId++;
     this.tasks = [...this.tasks, newTask];
     this.renderTasks();
   }
 
-  // Delete task method
+  // Delete task
   deleteTask(id: number): void {
     this.tasks = this.tasks.filter((item) => item.id !== id);
     this.renderTasks();
   }
 
-  // Handle drag event
   onDrag(event: DragEvent, taskId: number): void {
     event.dataTransfer?.setData('taskId', taskId.toString());
   }
 
-  // Handle drop event
   onDrop(event: DragEvent, newCategory: string): void {
     event.preventDefault();
 
@@ -49,7 +46,6 @@ class Task {
       }
     }
   }
-
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
